@@ -16,10 +16,11 @@ while True:
     print("12. CUBE ROOT")
     print("13. GCD")
     print("14. LCM")
-    print("15. VIEW CALCULATION HISTORY")
-    print("16. CLEAR HISTORY")
-    print("17. EXIT")
-    choice = input("Enter your choice (1-17): ")
+    print("15. NUMBER SYSTEM CONVERTER")
+    print("16. VIEW CALCULATION HISTORY")
+    print("17. CLEAR HISTORY")
+    print("18. EXIT")
+    choice = input("Enter your choice (1-18): ")
     try:
         if choice == '1':
             num1 = float(input("Enter first number: "))
@@ -201,6 +202,8 @@ while True:
                         file.write(f"Cosecant: {angle} degrees = {result}\n")
             else:
                 print("Invalid choice for trigonometric function.")
+                with open("calculation_history.txt", "a") as file:  
+                    file.write("Error: Invalid choice for trigonometric function\n")
         elif choice=='12':
             num = float(input("Enter a number: "))
             result = math.cbrt(num)
@@ -222,6 +225,73 @@ while True:
             with open("calculation_history.txt", "a") as file:
                 file.write(f"LCM: {num1} and {num2} = {result}\n")
         elif choice=='15':
+            print("SELECT NUMBER SYSTEM CONVERSION")
+            print("1. Decimal to Binary")
+            print("2. Decimal to Octal")
+            print("3. Decimal to Hexadecimal")
+            print("4. Binary to Decimal")
+            print("5. Octal to Decimal")
+            print("6. Hexadecimal to Decimal")
+            conversion_choice = input("Enter your choice (1-6): ")
+            if conversion_choice == '1':
+                num = int(input("Enter a decimal number: "))
+                if num < 0:
+                    result ="-" + bin(num)[3:]
+                    print(f"Binary representation of {num} is: {result}")
+                    with open("calculation_history.txt", "a") as file:
+                        file.write(f"Decimal to Binary: {num} = {result}\n")
+                else:
+                    result = bin(num)[2:]
+                    print(f"Binary representation of {num} is: {result}")
+                    with open("calculation_history.txt", "a") as file:
+                        file.write(f"Decimal to Binary: {num} = {result}\n")
+            elif conversion_choice == '2':
+                num = int(input("Enter a decimal number: "))
+                if num < 0:
+                    result ="-" + oct(num)[3:]
+                    print(f"Octal representation of {num} is: {result}")
+                    with open("calculation_history.txt", "a") as file:
+                        file.write(f"Decimal to Octal: {num} = {result}\n")
+                else:
+                    result = oct(num)[2:]
+                    print(f"Octal representation of {num} is: {result}")
+                    with open("calculation_history.txt", "a") as file:
+                        file.write(f"Decimal to Octal: {num} = {result}\n")
+            elif conversion_choice == '3':
+                num = int(input("Enter a decimal number: "))
+                if num < 0:
+                    result ="-" + hex(num)[3:].upper()
+                    print(f"Hexadecimal representation of {num} is: {result}")
+                    with open("calculation_history.txt", "a") as file:
+                        file.write(f"Decimal to Hexadecimal: {num} = {result}\n")
+                else:        
+                    result = hex(num)[2:].upper()
+                    print(f"Hexadecimal representation of {num} is: {result}")
+                    with open("calculation_history.txt", "a") as file:
+                        file.write(f"Decimal to Hexadecimal: {num} = {result}\n")
+            elif conversion_choice == '4':
+                num = input("Enter a binary number: ")
+                result = int(num, 2)
+                print(f"Decimal representation of binary {num} is: {result}")
+                with open("calculation_history.txt", "a") as file:
+                    file.write(f"Binary to Decimal: {num} = {result}\n")
+            elif conversion_choice == '5':
+                num = input("Enter an octal number: ")
+                result = int(num, 8)
+                print(f"Decimal representation of octal {num} is: {result}")
+                with open("calculation_history.txt", "a") as file:
+                    file.write(f"Octal to Decimal: {num} = {result}\n")
+            elif conversion_choice == '6':
+                num = input("Enter a hexadecimal number: ")
+                result = int(num, 16)
+                print(f"Decimal representation of hexadecimal {num} is: {result}")  
+                with open("calculation_history.txt", "a") as file:
+                    file.write(f"Hexadecimal to Decimal: {num} = {result}\n")
+            else:
+                print("Invalid choice for number system conversion.")
+                with open("calculation_history.txt", "a") as file:
+                    file.write("Error: Invalid choice for number system conversion\n")
+        elif choice=='16':
             try:
                 with open("calculation_history.txt", "r") as file:
                     history = file.read()
@@ -232,11 +302,11 @@ while True:
                         print("No calculation history found.")
             except FileNotFoundError:
                 print("No calculation history found.")
-        elif choice=='16':
+        elif choice=='17':
             with open("calculation_history.txt", "w") as file:
                 file.write("")
             print("Calculation history cleared.")  
-        elif choice=='17':
+        elif choice=='18':
             print("Exiting the calculator. Goodbye!")
             break
         else:
@@ -250,5 +320,4 @@ while True:
         print("Error: The result is too large to calculate.")
         with open("calculation_history.txt", "a") as file:
             file.write("Error: Numerical result too large (OverflowError)\n")
-
 
